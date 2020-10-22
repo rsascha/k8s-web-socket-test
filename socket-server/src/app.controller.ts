@@ -1,12 +1,13 @@
 import { Controller, Get } from '@nestjs/common';
+import { MessageBody, SubscribeMessage } from '@nestjs/websockets';
 import { AppService } from './app.service';
 
 @Controller()
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+    constructor(private readonly appService: AppService) {}
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
+    @SubscribeMessage('events')
+    handleEvent(@MessageBody() data: string): string {
+        return data;
+    }
 }
