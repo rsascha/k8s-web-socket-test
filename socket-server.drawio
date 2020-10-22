@@ -1,1 +1,40 @@
-<mxfile host="app.diagrams.net" modified="2020-10-22T14:36:34.157Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36" version="13.8.1" etag="AoQKJvTmhDfZFoDsfvHp" type="github"><diagram id="TdVT5JBEjUix6JMwK_E3">UzV2zq1wL0osyPDNT0nNUTV2VTV2LsrPL4GwciucU3NyVI0MMlNUjV1UjYwMgFjVyA2HrCFY1qAgsSg1rwSLBiADYTaQg2Y1AA==</diagram></mxfile>
+<mxfile host="app.diagrams.net" modified="2020-10-22T14:44:51.556Z" agent="5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/86.0.4240.75 Safari/537.36" etag="4b7B-86p05ShSM_AV8B5" version="13.8.1" type="github">
+  <diagram id="TdVT5JBEjUix6JMwK_E3" name="Page-1">
+    <mxGraphModel dx="491" dy="1109" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="xgVZhX-ZcYtGazhankvf-12" value="k8s" style="rounded=1;whiteSpace=wrap;html=1;verticalAlign=top;" vertex="1" parent="1">
+          <mxGeometry x="240" y="390" width="200" height="160" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-2" value="subscribe&lt;br&gt;&amp;amp;&amp;nbsp;&lt;br&gt;receive&amp;nbsp;events" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="500" y="240" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-7" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="xgVZhX-ZcYtGazhankvf-1" target="xgVZhX-ZcYtGazhankvf-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-1" value="subscribe&lt;br&gt;&amp;amp; &lt;br&gt;receive&amp;nbsp;events" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="400" y="200" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-8" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;startArrow=classic;startFill=1;" edge="1" parent="1" source="xgVZhX-ZcYtGazhankvf-2" target="xgVZhX-ZcYtGazhankvf-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-5" value="socket-server" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="420" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-11" style="edgeStyle=none;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="xgVZhX-ZcYtGazhankvf-9" target="xgVZhX-ZcYtGazhankvf-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-9" value="trigger event" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="160" y="200" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-13" value="socket-server" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="280" y="430" width="120" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="xgVZhX-ZcYtGazhankvf-14" value="socket-server" style="rounded=0;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="290" y="440" width="120" height="80" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
