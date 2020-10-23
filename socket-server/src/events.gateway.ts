@@ -15,13 +15,14 @@ export class EventsGateway {
     handleMessage(client: any, payload: any): Observable<WsResponse<string>> {
         this.logger.log(`handleMessage()`);
         const events = timer(1000, 1000);
+
         return events.pipe(
-            tap(data => {
-                this.logger.debug(data);
-            }),
+            // tap(data => {
+            //     this.logger.debug(data);
+            // }),
             map(data => ({
                 event: 'events',
-                data: `Hello from Server: ${data}`,
+                data: `Hello from Server: ${data} | Server Time: ${new Date()}`,
             })),
         );
     }

@@ -24,4 +24,8 @@ export class AppComponent implements OnInit {
             });
         });
     }
+
+    date() {
+        return new Date();
+    }
 }
