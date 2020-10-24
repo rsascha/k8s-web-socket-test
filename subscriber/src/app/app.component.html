@@ -1,2 +1,4 @@
 
-<p>Message: {{ message$ | async }} | Client Time: {{ date() }}</p>
+<p>Message: <b>{{ (message$ | async)?.message }}</b></p> 
+<p>Server Time: {{ (message$ | async)?.serverTime }}</p> 
+<p>Client Time: {{ date() }}</p>
