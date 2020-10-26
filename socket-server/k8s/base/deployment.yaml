@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: socket-server
+    labels:
+        app: socket-server
+spec:
+    replicas: 3
+    selector:
+        matchLabels:
+            app: socket-server
+    template:
+        metadata:
+            labels:
+                app: socket-server
+        spec:
+            containers:
+                - name: socket-server
+                  image: socket-server
+                  ports:
+                      - containerPort: 80
+                  env:
+                      - name: PORT
+                        value: 3000
+                      - name: LOG_LEVEL
+                        value: log,error,warn.debug
