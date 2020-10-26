@@ -4,7 +4,6 @@
 <p>Server Time: {{ (events$ | async)?.serverTime }}</p> 
 <p>Client Time: {{ date() }}</p>
 <hr/>
-<p>subscribe: |- {{ subscribe }} -|</p>
 <button (click)="doSubscribe()">subscribe</button>
 --|-- 
 <button (click)="doUnsubscribe()">unsubscribe</button>
