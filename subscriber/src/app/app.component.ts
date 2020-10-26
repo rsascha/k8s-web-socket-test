@@ -34,13 +34,12 @@ export class AppComponent implements OnInit, OnDestroy {
     ngOnDestroy() {}
 
     doSubscribe() {
-        if (!this.events$) {
-            this.events$ = new Observable<ResponseDataType>((subscribe) => {
-                this.socket.on('events', (data) => {
-                    subscribe.next(data);
-                });
+        this.socket.connect();
+        this.events$ = new Observable<ResponseDataType>((subscribe) => {
+            this.socket.on('events', (data) => {
+                subscribe.next(data);
             });
-        }
+        });
         this.socket.emit('events', {
             message: 'Please send a ping',
             ping: true,
@@ -48,10 +47,7 @@ export class AppComponent implements OnInit, OnDestroy {
     }
 
     doUnsubscribe() {
-        this.socket.emit('events', {
-            message: 'Please stop ping',
-            ping: false,
-        } as RequestDataType);
+        this.socket.disconnect();
     }
 
     date() {
