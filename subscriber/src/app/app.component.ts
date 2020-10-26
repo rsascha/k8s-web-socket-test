@@ -1,11 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Socket } from 'ngx-socket-io';
-import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import {
+    bindCallback,
+    bindNodeCallback,
+    Observable,
+    pipe,
+    Subject,
+} from 'rxjs';
+import { map, takeUntil, tap } from 'rxjs/operators';
 
-interface DataType {
+interface ResponseDataType {
     message: string;
     serverTime: string;
+}
+interface RequestDataType {
+    message: string;
+    ping: boolean;
 }
 
 @Component({
@@ -13,21 +23,35 @@ interface DataType {
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
     title = 'subscriber';
-    message$: Observable<DataType>;
+    events$: Observable<ResponseDataType>;
 
     constructor(private socket: Socket) {}
 
-    ngOnInit() {
-        this.message$ = new Observable((subscribe) => {
-            console.debug('connected: ', this.socket.ioSocket['connected']);
-            this.socket.emit('events', { name: 'Nest' });
-            this.socket.on('events', (data: DataType) => {
-                console.debug(data);
-                subscribe.next(data);
+    ngOnInit() {}
+
+    ngOnDestroy() {}
+
+    doSubscribe() {
+        if (!this.events$) {
+            this.events$ = new Observable<ResponseDataType>((subscribe) => {
+                this.socket.on('events', (data) => {
+                    subscribe.next(data);
+                });
             });
-        });
+        }
+        this.socket.emit('events', {
+            message: 'Please send a ping',
+            ping: true,
+        } as RequestDataType);
+    }
+
+    doUnsubscribe() {
+        this.socket.emit('events', {
+            message: 'Please stop ping',
+            ping: false,
+        } as RequestDataType);
     }
 
     date() {

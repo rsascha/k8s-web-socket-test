@@ -1,4 +1,10 @@
 
-<p>Message: <b>{{ (message$ | async)?.message }}</b></p> 
-<p>Server Time: {{ (message$ | async)?.serverTime }}</p> 
+<p><a href="/">reload or open a new tab</a></p>
+<p>Message: <b>{{ (events$ | async)?.message }}</b></p> 
+<p>Server Time: {{ (events$ | async)?.serverTime }}</p> 
 <p>Client Time: {{ date() }}</p>
+<hr/>
+<p>subscribe: |- {{ subscribe }} -|</p>
+<button (click)="doSubscribe()">subscribe</button>
+--|-- 
+<button (click)="doUnsubscribe()">unsubscribe</button>
