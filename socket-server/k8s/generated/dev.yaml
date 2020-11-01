@@ -1,4 +1,9 @@
 apiVersion: v1
+kind: Namespace
+metadata:
+  name: dev
+---
+apiVersion: v1
 kind: Service
 metadata:
   name: socket-server
@@ -31,10 +36,10 @@ spec:
       containers:
       - env:
         - name: PORT
-          value: 3000
+          value: "3000"
         - name: LOG_LEVEL
-          value: log,error,warn.debug
-        image: socket-server
+          value: log,error,warn,debug
+        image: localhost:5000/socket-server:16
         name: socket-server
         ports:
         - containerPort: 80
