@@ -1,31 +1,62 @@
-.PHONY : help
+.PHONY: help
 
-help : Makefile
+help: Makefile
 	@sed -n 's/^##//p' $<
 
-VERSION_FILE=k8s/version
-OLD_VERSION=`cat $(VERSION_FILE)`
-NEW_VERSION=$(shell echo $$(($(OLD_VERSION) + 1)))
-
-## dist                 : Perform npm build
-dist: node_modules
-	npm run build
+OLD_VERSION = `cat k8s/version`
+NEW_VERSION = $(shell echo $$(($(OLD_VERSION) + 1)))
+export DOCKER_IMAGE = localhost:5000/socket-server:${NEW_VERSION}
 
 ## node_modules         : Perform npm install
 node_modules:
 	npm install
 
-## version              : Generate version
-version: k8s/version
-	echo 0 > version
+## dist                 : Perform npm build
+dist: node_modules
+	npm run build
 
-## build_application    : Build the application
-build_application: dist
+## build-application    : Build the application
+build-application: dist
 	@echo "ready!"
-	@echo $(OLD_VERSION)
-	@echo $(NEW_VERSION)
-	
+
+## init-version         : Generate version
+init-version: k8s/version
+	echo 0 > k8s/version
+
+## save-version         : Save version
+save-version:
+	@echo ${NEW_VERSION} > k8s/version
+
+## docker-build         : Build Docker image
+docker-build: 
+	docker build --tag=${DOCKER_IMAGE} .
+
+## docker-push          : Push Docker image
+docker-push: 
+	docker push ${DOCKER_IMAGE}
+
+## generate-kustomize   : Generate kustomize files from templates
+generate-kustomize:
+	envsubst < k8s/overlays/dev/deployment.tmpl.yaml > k8s/overlays/dev/deployment.yaml
+
+## generate-manifests   : Generate K8s manifest files from templates
+generate-manifests:
+	kustomize build k8s/overlays/dev/ --output k8s/generated/dev.yaml
+
+## apply-to-k8s         : Deploy application
+apply-to-k8s:
+	kubectl apply -f k8s/generated/dev.yaml
+
 ## clean                : Delete npm modules and the dist directory
 clean:
 	rm -r node_modules
 	rm -r dist
+
+## all                  : Build all
+all: build-application \
+        docker-build \
+        docker-push \
+        generate-kustomize \
+        generate-manifests \
+        apply-to-k8s \
+        save-version
