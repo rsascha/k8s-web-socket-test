@@ -3,9 +3,8 @@
 help: Makefile
 	@sed -n 's/^##//p' $<
 
-OLD_VERSION = `cat k8s/version`
-NEW_VERSION = $(shell echo $$(($(OLD_VERSION) + 1)))
-export DOCKER_IMAGE = localhost:5000/socket-server:${NEW_VERSION}
+VERSION := $(shell date +%s)
+export DOCKER_IMAGE = localhost:5000/socket-server:${VERSION}
 
 ## node_modules         : Perform npm install
 node_modules:
@@ -17,19 +16,10 @@ dist: node_modules
 
 ## build-application    : Build the application
 build-application: dist
-	@echo "ready!"
-
-## init-version         : Generate version
-init-version: k8s/version
-	echo 0 > k8s/version
-
-## save-version         : Save version
-save-version:
-	@echo ${NEW_VERSION} > k8s/version
 
 ## docker-build         : Build Docker image
 docker-build: 
-	docker build --tag=${DOCKER_IMAGE} .
+	docker build --tag=${DOCKER_IMAGE} --tag=latest .
 
 ## docker-push          : Push Docker image
 docker-push: 
@@ -41,6 +31,7 @@ generate-kustomize:
 
 ## generate-manifests   : Generate K8s manifest files from templates
 generate-manifests:
+	@mkdir -p k8s/generated
 	kustomize build k8s/overlays/dev/ --output k8s/generated/dev.yaml
 
 ## apply-to-k8s         : Deploy application
@@ -52,11 +43,10 @@ clean:
 	rm -r node_modules
 	rm -r dist
 
-## all                  : Build all
-all: build-application \
+## deploy               : Deploy application
+deploy: build-application \
         docker-build \
         docker-push \
         generate-kustomize \
         generate-manifests \
-        apply-to-k8s \
-        save-version
+        apply-to-k8s 
