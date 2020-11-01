@@ -9,7 +9,7 @@ Fix:
 Create or modify `/etc/docker/daemon.json`
 
 ```json
-{ "insecure-registries":["172.17.0.2:5000"] }
+{ "insecure-registries":["localhost:5000"] }
 ```
 
 Restart docker daemon
