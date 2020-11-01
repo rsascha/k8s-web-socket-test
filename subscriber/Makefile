@@ -38,10 +38,13 @@ generate-manifests:
 apply-to-k8s:
 	kubectl apply -f k8s/generated/dev.yaml
 
-## clean                : Delete npm modules and the dist directory
-clean:
-	rm -r node_modules
+## clear-dist           : Delete npm modules and the dist directory
+clear-dist:
 	rm -r dist
+
+## clean                : Delete npm modules and the dist directory
+clean: clear-dist
+	rm -r node_modules
 
 ## deploy               : Deploy application
 deploy: build-application \
@@ -50,3 +53,6 @@ deploy: build-application \
         generate-kustomize \
         generate-manifests \
         apply-to-k8s 
+
+## build-and-deploy      : Deploy application
+build-and-deploy: clear-dist deploy
