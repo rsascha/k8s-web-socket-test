@@ -8,3 +8,6 @@ spec:
             containers:
                 - name: socket-server
                   image: $DOCKER_IMAGE
+                  env:
+                      - name: DATABASE_HOST
+                        value: redis

@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import environment from './environment';
+import { RedisIoAdapter } from './redis-io-adapter/redis-io-adapter.service';
 
 async function bootstrap() {
     const config = environment();
@@ -12,9 +13,12 @@ async function bootstrap() {
     const app = await NestFactory.create(AppModule, {
         logger: config.logLevel,
     });
+
     logger.log(
         `Starting with LOG_LEVELS: ${config.logLevel} (possible values are: log,error,warn,debug,verbose)`,
     );
+
+    app.useWebSocketAdapter(new RedisIoAdapter(app));
 
     app.enableCors({ origin: 'http://localhost:4200', credentials: true });
     //app.setGlobalPrefix('application-service/v1');

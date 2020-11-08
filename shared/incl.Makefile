@@ -1,6 +1,6 @@
 #
 # This file can be used by other Makefiles like:
-# 
+#
 # 	export DOCKER_IMAGE := localhost:5000/subscriber:$(shell date +%s)
 # 	include incl.Makefile
 #
@@ -23,12 +23,14 @@ clear-node_modules:
 
 clear-all: clear-dist clear-node_modules
 
-docker-build: 
-	docker build --tag=${DOCKER_IMAGE} --tag=latest .
-	docker push ${DOCKER_IMAGE}
+generate-templates:
 	envsubst < k8s/overlays/dev/deployment.tmpl.yaml > k8s/overlays/dev/deployment.yaml
 
-k8s-kustomize:
+docker-build: generate-templates
+	docker build --tag=${DOCKER_IMAGE} --tag=latest .
+	docker push ${DOCKER_IMAGE}
+
+k8s-kustomize: generate-templates
 	@mkdir -p k8s/generated
 	kustomize build k8s/overlays/dev/ --output k8s/generated/dev.yaml
 
@@ -38,6 +40,6 @@ k8s-apply:
 deploy: build-application \
         docker-build \
         k8s-kustomize \
-        k8s-apply 
+        k8s-apply
 
 deploy-with-build: clear-dist deploy
