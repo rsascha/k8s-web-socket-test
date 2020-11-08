@@ -1,7 +1,8 @@
 namespace: dev
 
 resources:
-  - namespace.yaml
+    - namespace.yaml
+    - ingress.yaml
 
 bases:
-  - ../../base
+    - ../../base

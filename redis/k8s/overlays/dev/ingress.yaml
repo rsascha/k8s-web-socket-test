@@ -1,0 +1,13 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+    name: ingress-redis
+spec:
+    rules:
+        - host: redis.127.0.0.1.nip.io
+          http:
+              paths:
+                  - path: /
+                    backend:
+                        serviceName: redis
+                        servicePort: 6379
