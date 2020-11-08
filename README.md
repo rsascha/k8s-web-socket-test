@@ -24,6 +24,24 @@ Diagram:
 
 * Socket connection is not switching to another pod.
 
+* Current problem with K8s setup:
+
+```plain
+# kail -n dev
+dev/socket-server-7f7884f7dc-plfqv[socket-server]: Error: Redis connection to redis:6379 failed - connect ECONNREFUSED 10.110.159.10:6379
+...
+dev/socket-server-7f7884f7dc-plfqv[socket-server]:   code: 'ECONNREFUSED',
+dev/socket-server-7f7884f7dc-plfqv[socket-server]:   syscall: 'connect',
+dev/socket-server-7f7884f7dc-plfqv[socket-server]:   address: '10.110.159.10',
+dev/socket-server-7f7884f7dc-plfqv[socket-server]:   port: 6379
+dev/socket-server-7f7884f7dc-plfqv[socket-server]: }
+
+# kubectl -n dev get service
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+redis           ClusterIP   10.110.159.10   <none>        6379/TCP   54m
+
+```
+
 ## Start the Application for Development
 
 * Go to `socket-server/`and execute `npm start`
