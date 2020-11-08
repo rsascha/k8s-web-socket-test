@@ -7,8 +7,8 @@ import {
     WsResponse,
 } from '@nestjs/websockets';
 import { Socket } from 'net';
-import { from, Observable, of, Subject, timer } from 'rxjs';
-import { every, filter, map, mergeMap, takeWhile, tap } from 'rxjs/operators';
+import { Observable, timer } from 'rxjs';
+import { map, tap } from 'rxjs/operators';
 
 interface ResponseDataType {
     message: string;
@@ -27,7 +27,6 @@ export class EventsGateway {
      * Implementation with bugs:
      * - client can subscribe multiple times
      * - every subscription starts a new event stream
-     * - client cannot unsubscribe
      */
     @SubscribeMessage('events')
     handleMessage(
