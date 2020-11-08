@@ -1,9 +1,9 @@
 
 <p><a href="/">reload or open a new tab</a></p>
-<p>Message: <b>{{ (events$ | async)?.message }}</b></p> 
-<p>Server Time: {{ (events$ | async)?.serverTime }}</p> 
+<p>Message: <b>{{ (events$ | async)?.message }}</b></p>
+<p>Server Time: {{ (events$ | async)?.serverTime }}</p>
 <p>Client Time: {{ date() }}</p>
 <hr/>
 <button (click)="doSubscribe()">subscribe</button>
---|-- 
+--|--
 <button (click)="doUnsubscribe()">unsubscribe</button>
