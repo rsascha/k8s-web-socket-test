@@ -25,10 +25,12 @@ clear-all: clear-dist clear-node_modules
 
 process-templates:
 	envsubst < k8s/overlays/dev/deployment.tmpl.yaml > k8s/overlays/dev/deployment.yaml
-	@sed -i '1s/^/# ------------------------------------\n/' k8s/overlays/dev/deployment.yaml
-	@sed -i '2s/^/# --- GENERATED FILE - DO NOT EDIT ---\n/' k8s/overlays/dev/deployment.yaml
-	@sed -i '3s/^/# --- Edit: deployment.tmpl.yaml   ---\n/' k8s/overlays/dev/deployment.yaml
-	@sed -i '4s/^/# ------------------------------------\n/' k8s/overlays/dev/deployment.yaml
+	@sed -i '1s/^/---\n/' k8s/overlays/dev/deployment.yaml
+	@sed -i '2s/^/# ------------------------------------\n/' k8s/overlays/dev/deployment.yaml
+	@sed -i '3s/^/# --- GENERATED FILE - DO NOT EDIT ---\n/' k8s/overlays/dev/deployment.yaml
+	@sed -i '4s/^/# --- Edit: deployment.tmpl.yaml   ---\n/' k8s/overlays/dev/deployment.yaml
+	@sed -i '5s/^/# ------------------------------------\n/' k8s/overlays/dev/deployment.yaml
+	@sed -i '6s/^/---\n/' k8s/overlays/dev/deployment.yaml
 
 docker-build: process-templates
 	docker build --tag=${DOCKER_IMAGE} --tag=latest .
@@ -37,10 +39,12 @@ docker-build: process-templates
 k8s-kustomize: process-templates
 	@mkdir -p k8s/generated
 	kustomize build k8s/overlays/dev/ --output k8s/generated/dev.yaml
-	@sed -i '1s/^/# --------------------------------------\n/' k8s/generated/dev.yaml
-	@sed -i '2s/^/# --- GENERATED FILE - DO NOT EDIT   ---\n/' k8s/generated/dev.yaml
-	@sed -i '3s/^/# --- Edit files in base or overlays ---\n/' k8s/generated/dev.yaml
-	@sed -i '4s/^/# --------------------------------------\n/' k8s/generated/dev.yaml
+	@sed -i '1s/^/---\n/' k8s/overlays/dev/deployment.yaml
+	@sed -i '2s/^/# --------------------------------------\n/' k8s/generated/dev.yaml
+	@sed -i '3s/^/# --- GENERATED FILE - DO NOT EDIT   ---\n/' k8s/generated/dev.yaml
+	@sed -i '4s/^/# --- Edit files in base or overlays ---\n/' k8s/generated/dev.yaml
+	@sed -i '5s/^/# --------------------------------------\n/' k8s/generated/dev.yaml
+	@sed -i '6s/^/---\n/' k8s/overlays/dev/deployment.yaml
 
 k8s-apply:
 	kubectl apply -f k8s/generated/dev.yaml
