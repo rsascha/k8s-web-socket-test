@@ -1,0 +1,11 @@
+{
+    "name": "ubuntu",
+    "version": "1.0.0",
+    "description": "Just for debugging ...",
+    "scripts": {
+        "build": "return 0"
+    },
+    "devDependencies": {
+        "prettier": "^2.1.2"
+    }
+}

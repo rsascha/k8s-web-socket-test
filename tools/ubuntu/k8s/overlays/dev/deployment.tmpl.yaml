@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: ubuntu
+spec:
+    containers:
+        - name: ubuntu
+          image: $DOCKER_IMAGE
